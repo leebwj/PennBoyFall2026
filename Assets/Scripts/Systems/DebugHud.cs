@@ -42,10 +42,6 @@ public class DebugHud : MonoBehaviour
             GUILayout.Label($"dash {dash}", label);
         }
         GUILayout.EndArea();
-
-        GUILayout.BeginArea(new Rect(12f, Screen.height - 60f, 520f, 50f));
-        GUILayout.Label("wasd move    shift sprint    space dash    left click fire    scroll zoom", label);
-        GUILayout.EndArea();
     }
 
     private static Texture2D MakeTexture(Color color)

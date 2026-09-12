@@ -48,6 +48,13 @@ Runtime scripts are in the `PennBoy` assembly under `Assets/Scripts`:
 
 Tests are in `Assets/Tests/EditMode`. Run them from Window, General, Test Runner.
 
+## Guides
+
+- [Working on PennBoy](CONTRIBUTING.md), read this before your first change
+- [Project structure](docs/project-structure.md), what lives in each folder
+- [Adding a feature](docs/adding-a-feature.md), a worked example end to end
+- [Troubleshooting](docs/troubleshooting.md), the errors you will actually hit
+
 ## Working together
 
 Commit scenes and prefabs with their `.meta` files. Avoid two people editing `Main.unity` at the same time, since scene files do not merge well. Put new mechanics in their own prefabs and scripts where you can, and keep logic that does not need a GameObject in a plain class so it can be tested.

@@ -2,6 +2,10 @@
 
 Top down game for the Fall 2026 semester. This repo is the starting point the team builds on.
 
+## Team
+
+Andrew, Kaibo, Lucas, Brian
+
 ## Requirements
 
 Unity 6000.3.23f1 with the Universal Render Pipeline. Install that exact version through Unity Hub so the project opens without a reimport or upgrade prompt.

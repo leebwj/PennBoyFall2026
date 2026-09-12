@@ -1,6 +1,6 @@
 # PennBoy 2026 Fall
 
-Top down game for the Fall 2026 semester. This repo is the starting point the team builds on.
+This repo is the starting point the team builds on.
 
 ## Team
 

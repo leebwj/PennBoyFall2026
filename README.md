@@ -1,6 +1,6 @@
 # PennBoy 2026 Fall
 
-This repo is the starting point the team builds on.
+This is the starting point we build on, and it is deliberately small. We add things one at a time as we learn them.
 
 ## Team
 
@@ -20,44 +20,33 @@ The first open takes a few minutes while Unity fills the Library folder. That fo
 
 ## Controls
 
-WASD or the left stick moves the player. The player faces the mouse cursor, or the right stick on a gamepad. Shift sprints, space dashes, left click fires, and the scroll wheel zooms the camera. Bindings live in `Assets/InputSystem_Actions.inputactions` under the Player map, and code reads them through `InputSystem.actions` rather than polling keys.
+WASD moves the player. The player turns to face the mouse cursor. Left click fires a bullet, and a bullet destroys the target it hits.
 
-## What is in the test scene
+## What is in the scene
 
-`Main.unity` is a plain 40 by 40 walled arena, deliberately bare so it is easy to change:
+A ground plane 40 units across, a player capsule, five target cubes, a camera that follows the player from above, and one directional light. That is the whole scene.
 
-- The player starts near the south wall.
-- Six boxes to move around and shoot over.
-- Three enemies, plus a spawner that keeps three alive.
-- One health pickup and one score pickup, both recharging after six seconds.
+## Scripts
 
-Dying respawns you at the start after 1.2 seconds. Health, score, deaths, and dash charge are drawn in the corner by a debug overlay.
+Four files in `Assets/Scripts`, all of them short enough to read in one sitting:
 
-## Code layout
+- `PlayerController.cs` moves the Rigidbody, turns the player toward the cursor, and spawns a bullet on left click.
+- `CameraFollow.cs` keeps the camera at a fixed offset above the player and eases toward it.
+- `Bullet.cs` flies forward, destroys itself after three seconds, and destroys a target it touches.
+- `Target.cs` is the thing a bullet can destroy.
 
-Runtime scripts are in the `PennBoy` assembly under `Assets/Scripts`:
+The scene is a normal Unity scene. Nothing generates it, so change it in the editor the same way you would in any other project.
 
-- `Common/HealthPool.cs` and `Common/CooldownTimer.cs` are plain C# classes with no Unity dependency, so EditMode tests cover them directly.
-- `Common/Damageable.cs` wraps a health pool in a MonoBehaviour and raises `Changed` and `Died`. The player, enemies, and target dummies all use it.
-- `Player/` holds movement and aiming, firing, and death and respawn.
-- `Enemies/` holds the chase behaviour and the spawner.
-- `World/` holds pickups.
-- `Systems/` holds the camera rig, the score and respawn manager, and the debug overlay.
-
-`Assets/Editor/SceneBuilder.cs` regenerates the whole scene and `Assets/Editor/GameAssets.cs` creates the materials and prefabs it uses. Run it from the PennBoy menu in the editor. Everything it produces is committed, so you only need it to change the layout or start over. Keeping the scene reproducible from code is also why none of these files should be edited as YAML by hand.
-
-Tests are in `Assets/Tests/EditMode`. Run them from Window, General, Test Runner.
+Input uses the `Input` class, the one from the tutorial. Active Input Handling is set to Both in Project Settings, so the newer Input System also works if we move to it later.
 
 ## Guides
 
 - [Working on PennBoy](CONTRIBUTING.md), read this before your first change
-- [Project structure](docs/project-structure.md), what lives in each folder
-- [Adding a feature](docs/adding-a-feature.md), a worked example end to end
 - [Troubleshooting](docs/troubleshooting.md), the errors you will actually hit
 
 ## Working together
 
-Commit scenes and prefabs with their `.meta` files. Avoid two people editing `Main.unity` at the same time, since scene files do not merge well. Put new mechanics in their own prefabs and scripts where you can, and keep logic that does not need a GameObject in a plain class so it can be tested.
+Commit scenes and prefabs with their `.meta` files. Avoid two people editing `Main.unity` at the same time, since scene files do not merge well.
 
 Set up UnityYAMLMerge once so scene and prefab conflicts are survivable:
 

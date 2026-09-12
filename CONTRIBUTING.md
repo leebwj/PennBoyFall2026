@@ -18,31 +18,25 @@ On my machine that path is `D:\Unity\6000.3.23f1\Editor\Data\Tools\UnityYAMLMerg
 
 ## Branches and commits
 
-Branch off main and name the branch after what you are building: `enemy-ranged`, `pause-menu`, `dash-trail`. Merge back through a pull request so someone else sees the diff first.
+Branch off main and name the branch after what you are building: `enemy-chase`, `pause-menu`, `dash-move`. Merge back through a pull request so someone else sees the diff first.
 
-Commit messages are short and name the change, like `add ranged enemy` or `camera bounds fix`. Add a body only when the reason is not obvious from the diff. Keep one logical change per commit.
+Commit messages are short and name the change, like `add enemy chase` or `camera offset fix`. Add a body only when the reason is not obvious from the diff. Keep one logical change per commit.
 
 Do not force push to main, and do not rewrite a commit someone else has already pulled.
 
 ## Before you push
 
-Open Window, General, Test Runner and run the EditMode tests. There are 20 and they finish in a few seconds. A failure is either a real break or a test that needs updating, and either way it is yours to resolve before pushing.
+Press Play and move, turn, and shoot for ten seconds. There is no test suite yet, so this is the only check we have.
 
-Then press Play and move around for ten seconds. Nothing in the test suite covers a running scene, so this is the only check on anything physics or input related.
+Watch the Console while you do it. A yellow warning you have not seen before is worth understanding before you push it to everyone else.
 
 ## Scenes and prefabs do not merge
 
 `Main.unity` is a single file that Unity rewrites in full every time it saves. When two people change it at once, git produces a conflict that is slow to resolve and easy to resolve wrongly.
 
-Say in chat before you start editing the scene, and say when you are done. If your change can live in a prefab instead, put it there, because prefabs collide far less often.
+Say in chat before you start editing the scene, and say when you are done. If your change can live in a prefab or a script instead, put it there, because those collide far less often.
 
 If you do hit a conflict in a `.unity` or `.prefab` file, run `git mergetool` instead of opening the file in a text editor. When the tool cannot resolve it, the quickest fix is to take one side, redo your change in the editor, and commit again.
-
-## The scene is generated, so tune values in code
-
-`Assets/Editor/SceneBuilder.cs` rebuilds `Main.unity`, every prefab, and every material from scratch. Running it overwrites the prefab assets, so an inspector tweak you made by hand disappears the next time anyone rebuilds.
-
-Change a number in the inspector while you are trying to find a value that feels right. Once you have it, move that number into the builder or into the script's serialized default, then commit both. If you are unsure where a value lives, search the builder for the field name.
 
 ## Never commit
 
@@ -56,30 +50,28 @@ Unity regenerates all of this, and committing it causes a conflict on every pull
 
 Every asset has a `.meta` file beside it holding the id that scenes and prefabs use to find it. Move, rename, and delete assets from inside Unity so the `.meta` travels with the asset. A deleted `.meta` breaks every reference to that asset, and it shows up later as a missing script or a pink material rather than as an error where you caused it.
 
-## Where new code goes
+## Adding code
 
-Logic that does not need a GameObject goes in `Assets/Scripts/Common` as a plain class, so a test can reach it without loading a scene. `HealthPool` and `CooldownTimer` are the two examples to copy.
+New scripts go in `Assets/Scripts`. Keep one class per file and name the file after the class, which Unity requires for a MonoBehaviour.
 
-Everything else goes in the folder for its area: `Player`, `Enemies`, `Combat`, `World`, or `Systems`. Keep MonoBehaviours thin and let them call into the plain classes.
-
-Read input through the action map, never by polling a key:
+Values you want to tune from the inspector go in a `[SerializeField] private` field with a sensible default, so the object still works if nobody touches it:
 
 ```csharp
-InputAction move = InputSystem.actions.FindAction("Player/Move");
+[SerializeField] private float moveSpeed = 6f;
 ```
 
-New bindings go in `Assets/InputSystem_Actions.inputactions` under the Player map. `PrefabWiringTests` fails if a script asks for an action that does not exist, which is how you find out before someone else does.
+Read input the way `PlayerController` does, with the `Input` class, until we decide together to move to the Input System. Mixing both in one project makes it hard to tell where a binding lives.
+
+Put physics in `FixedUpdate`, input and aiming in `Update`, and camera movement in `LateUpdate` so the camera follows a position the player has already reached.
 
 ## Code style
 
-Four space indent, braces on their own line, `UpperCamel` types, `camelCase` locals and methods. Private fields the inspector needs are `[SerializeField] private` with a sensible default, so a prefab works without hand wiring.
+Four space indent, braces on their own line, `UpperCamel` types, `camelCase` locals and methods.
 
-Write a comment only for something the code cannot say: a physics quirk, an engine rule, a reason a value is what it is. Do not restate the line below it. There are two comments in the whole codebase right now, and that is about right.
+Write a comment only for something the code cannot say: a physics quirk, an engine rule, a reason a value is what it is. Do not restate the line below it. There is one comment in the whole project right now, and that is about right.
 
-Unity 6 renamed several things that older tutorials still use. Use `linearVelocity` instead of `velocity`, `FindFirstObjectByType` instead of `FindObjectOfType`, and `InputSystem.actions` instead of the old `Input` class. Anything copied from a 2023 tutorial will need these changed.
+Unity 6 renamed several things that older tutorials still use. Use `linearVelocity` instead of `velocity`, and `FindFirstObjectByType` instead of `FindObjectOfType`. Anything copied from a 2023 tutorial will need these changed.
 
 ## More
 
-- [Project structure](docs/project-structure.md), what lives in each folder
-- [Adding a feature](docs/adding-a-feature.md), a worked example end to end
 - [Troubleshooting](docs/troubleshooting.md), the errors you will actually hit

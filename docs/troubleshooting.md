@@ -10,21 +10,27 @@ Unity holds the open scene in memory and does not reload it when the file change
 
 The URP render pipeline asset is not assigned. Check Edit, Project Settings, Graphics and Quality, and make sure they point at the assets in `Assets/Settings`. If they look right, delete `Library/` and reopen the project.
 
-## A prefab says the script is missing
+## A GameObject says the script is missing
 
 The `.meta` file for that script was deleted, or the script was moved outside Unity so its id changed. Scenes and prefabs point at scripts by id, not by name, so the reference cannot recover on its own.
 
-Undo the move, or reassign the script in the inspector and commit the fixed prefab. Move and rename files from inside Unity to avoid this.
+Undo the move, or drag the script back onto the object in the inspector and commit the fix. Move and rename files from inside Unity to avoid this.
 
 ## Nothing responds to input
 
-Check the Console for a line naming a missing action. `InputRef` logs the action path it could not find, which usually means the binding was added on someone else's machine and the `.inputactions` file was not committed.
+Check Edit, Project Settings, Player, Active Input Handling. It must be Both or Input Manager, because our scripts use the `Input` class. If it is set to Input System Package only, `Input.GetAxisRaw` throws every frame and the Console fills with the same error.
 
-If the Console is clean, open `Assets/InputSystem_Actions.inputactions` and confirm the Player map still has Move, Point, Aim, Dash, Sprint, Attack, and Zoom. Running the EditMode tests checks the same thing.
+## The player will not move, but there is no error
+
+Check that the player still has a Rigidbody and that Freeze Rotation is ticked on all three axes. Without the constraint the capsule tips over, and a tipped capsule slides instead of walking.
+
+## Bullets pass through targets
+
+The bullet collider must be a trigger and the bullet must have a Rigidbody, otherwise `OnTriggerEnter` never fires. Both are set on `Assets/Prefabs/Bullet.prefab`. A bullet moving fast enough can also skip past a thin collider in one frame, so lower the speed to check whether that is what you are seeing.
 
 ## Another Unity instance is running with this project open
 
-You cannot run a command line Unity job against a project the editor already has open, because the editor holds a lock on `Library/`. Close the editor, or do the work through the menu inside the editor instead.
+You cannot run a command line Unity job against a project the editor already has open, because the editor holds a lock on `Library/`. Close the editor and try again.
 
 Do not remove the lock file to get around this. Two processes writing `Library/` at once corrupts it.
 
@@ -39,10 +45,6 @@ Run `git mergetool`, which is set up to use UnityYAMLMerge. It understands the f
 When it cannot resolve the conflict, do not hand edit the file. Take one side with `git checkout --theirs` or `--ours`, reopen the scene, redo your change in the editor, and commit. Losing ten minutes of editor work is better than a scene that loads with silent breakage.
 
 The real fix is upstream: tell the others before you edit the scene.
-
-## Tests fail after I renamed a field
-
-`GameAssets.Wire` sets serialized fields by name as a string, so renaming a field breaks the builder without a compiler error. `PrefabWiringTests` exists to catch exactly this. Update the name in `Assets/Editor/GameAssets.cs`, rebuild from the PennBoy menu, and run the tests again.
 
 ## The editor is stuck compiling, or behaving strangely
 

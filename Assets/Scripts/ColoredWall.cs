@@ -27,14 +27,12 @@ public class ColoredWall : MonoBehaviour
 
         // Scan player and check its current color state
         player = GameObject.FindWithTag("Player").GetComponent<Colorable>();
-
+        
     }
 
     void Update() {
 
         // When player is opposite color, wall is triggered to be passable
         wallCollider.isTrigger = player.CurrentColor != colorable.CurrentColor;
-
     }
-
 }

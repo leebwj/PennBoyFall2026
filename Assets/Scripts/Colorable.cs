@@ -36,9 +36,5 @@ public class Colorable : MonoBehaviour
             r.material.color = tint;
 
         }
-
-
     }
-
-
 }

@@ -24,13 +24,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb; // Player physics body
     private Camera cam; // Scene camera
     private Vector3 facing = Vector3.forward; // Direction player is facing forward
-
+    private Animator animator;
     // Initial state of player
     void Start()
     {
         rb = GetComponent<Rigidbody>(); // Find initial RigidBody
         cam = Camera.main; // Find initial scene camera
         facing = transform.forward; // Face whereever the object was placed in scene initially 
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update basic player movement every frame
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         // Read and save WASD direction.
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
-
+        animator.SetBool("IsWalking", input.sqrMagnitude > 0.01f);
         // Change key direction to match camera view point
         input = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f) * input;
         
@@ -108,6 +109,8 @@ public class PlayerController : MonoBehaviour
         if (bulletPrefab == null || bulletSpawnPoint == null) { 
             return; 
         }
+
+        animator.SetTrigger("Shoot");
 
         // Create bullet by cloning prefab at spawn point. 
         GameObject shot = Instantiate(bulletPrefab, bulletSpawnPoint.position, transform.rotation);

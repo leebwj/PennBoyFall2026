@@ -3,6 +3,7 @@
     "rootNamespace": "",
     "references": [
         "PennBoy",
+        "PennBoy.Editor",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.InputSystem"

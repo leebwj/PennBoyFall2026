@@ -33,6 +33,14 @@ WASD or the left stick moves the player. The player faces the mouse cursor, or t
 
 Dying respawns you at the start after 1.2 seconds. Health, score, deaths, and dash charge are drawn in the corner by a debug overlay.
 
+## Colour exchange demo
+
+`Assets/Scenes/ColorDemo.unity` is generated from the design handoff's `Assets/Demo/Data/world-layout.json`: the 14 connected puzzles, their connectors, and the boss arena as geometry only. Build it once from the PennBoy menu with Build Color Demo; the scene and its materials are not committed yet.
+
+Left click fires the exchange shot, and only while standing on flat ground. R, or Select on a gamepad, restarts the current encounter. A fall or a hit from a same colour enemy shot also restarts it. There is no on-screen text.
+
+The code is in `Assets/Scripts/ColorDemo` and `Assets/Editor/ColorDemoBuilder.cs`. The shot and exchange rules are plain C# in `ColorRules.cs`, so EditMode tests cover them.
+
 ## Code layout
 
 Runtime scripts are in the `PennBoy` assembly under `Assets/Scripts`:

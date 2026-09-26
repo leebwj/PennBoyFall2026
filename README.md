@@ -39,6 +39,8 @@ Dying respawns you at the start after 1.2 seconds. Health, score, deaths, and da
 
 Left click fires the exchange shot, and only while standing on flat ground. R, or Select on a gamepad, restarts the current encounter. A fall or a hit from a same colour enemy shot also restarts it. There is no on-screen text.
 
+To test a later encounter, select Director in the scene and set Start Route (1 to 15, 0 for the beginning). While playing, ] and [ jump to the next and previous encounter.
+
 The code is in `Assets/Scripts/ColorDemo` and `Assets/Editor/ColorDemoBuilder.cs`. The shot and exchange rules are plain C# in `ColorRules.cs`, so EditMode tests cover them.
 
 ## Code layout

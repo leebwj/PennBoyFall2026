@@ -6,6 +6,7 @@ public class ColorRegion : MonoBehaviour
 {
     [SerializeField] private int route;
     [SerializeField] private Vector3 respawn;
+    [SerializeField] private ColorId arrival;
     [SerializeField] private bool elevated;
     [SerializeField] private ColorTarget[] targets = new ColorTarget[0];
     [SerializeField] private Rigidbody[] boxes = new Rigidbody[0];
@@ -19,11 +20,15 @@ public class ColorRegion : MonoBehaviour
 
     public int Route => route;
     public bool Elevated => elevated;
+    public bool Captured => captured;
+    public Vector3 Respawn => respawn;
+    public ColorId Arrival => arrival;
 
-    public void Configure(int routeNumber, Vector3 respawnFeet, bool isElevated, ColorTarget[] regionTargets, Rigidbody[] regionBoxes)
+    public void Configure(int routeNumber, Vector3 respawnFeet, ColorId arrivalColor, bool isElevated, ColorTarget[] regionTargets, Rigidbody[] regionBoxes)
     {
         route = routeNumber;
         respawn = respawnFeet;
+        arrival = arrivalColor;
         elevated = isElevated;
         targets = regionTargets;
         boxes = regionBoxes;

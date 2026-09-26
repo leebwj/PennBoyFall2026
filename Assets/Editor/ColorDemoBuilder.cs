@@ -117,7 +117,7 @@ public static class ColorDemoBuilder
             respawn = V3(JsonTree.Floats(checkpoint, "respawn")),
             activation = V3(JsonTree.Floats(checkpoint, "activation")),
             elevated = JsonTree.Bool(level, "voidIsPit", false) || surfaces.Any(s => JsonTree.Num(s, "h") > 0.1f),
-            arrival = (ColorId)JsonTree.Int(level, "entry"),
+            arrival = (ColorId)JsonTree.Int(checkpoint, "expectedCapturedColor"),
         };
         regions[route] = parts;
 
@@ -458,7 +458,7 @@ public static class ColorDemoBuilder
             respawn = V3(JsonTree.Floats(checkpoint, "respawn")),
             activation = V3(JsonTree.Floats(checkpoint, "activation")),
             elevated = true,
-            arrival = (ColorId)JsonTree.Int(boss, "entry"),
+            arrival = (ColorId)JsonTree.Int(checkpoint, "expectedCapturedColor"),
         };
         regions[route] = parts;
 
@@ -512,7 +512,7 @@ public static class ColorDemoBuilder
     private static void FinishRegion(RegionParts parts)
     {
         ColorRegion region = parts.root.gameObject.AddComponent<ColorRegion>();
-        region.Configure(parts.route, parts.respawn + Vector3.up * 0.05f, parts.elevated, parts.targets.ToArray(), parts.boxes.ToArray());
+        region.Configure(parts.route, parts.respawn + Vector3.up * 0.05f, parts.arrival, parts.elevated, parts.targets.ToArray(), parts.boxes.ToArray());
         parts.region = region;
 
         var trigger = new GameObject("Checkpoint");

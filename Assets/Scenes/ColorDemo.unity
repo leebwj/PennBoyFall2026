@@ -992,6 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 10
   respawn: {x: 68, y: 0.05, z: 76}
+  arrival: 0
   elevated: 0
   targets:
   - {fileID: 876381399}
@@ -21023,6 +21024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 12
   respawn: {x: 24, y: 0.05, z: 108}
+  arrival: 0
   elevated: 1
   targets:
   - {fileID: 1158639962}
@@ -34811,6 +34813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 8
   respawn: {x: 156, y: 0.05, z: 66}
+  arrival: 0
   elevated: 1
   targets:
   - {fileID: 1842992565}
@@ -38259,6 +38262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 3
   respawn: {x: 72, y: 0.05, z: 4}
+  arrival: 0
   elevated: 0
   targets:
   - {fileID: 829588653}
@@ -48453,6 +48457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 1
   respawn: {x: 2, y: 0.05, z: 4}
+  arrival: 0
   elevated: 0
   targets:
   - {fileID: 541445468}
@@ -51997,6 +52002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 4
   respawn: {x: 116, y: 0.05, z: 8}
+  arrival: 0
   elevated: 0
   targets:
   - {fileID: 177975387}
@@ -87761,6 +87767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 11
   respawn: {x: 8, y: 0.05, z: 72}
+  arrival: 0
   elevated: 0
   targets:
   - {fileID: 1606148240}
@@ -115024,7 +115031,7 @@ Transform:
   m_GameObject: {fileID: 1380761535}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 45.5, y: 3.85, z: 112}
+  m_LocalPosition: {x: 47.43, y: 3.85, z: 112}
   m_LocalScale: {x: 2, y: 0.3, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -123509,7 +123516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dfe528d186caa842987f0301727d626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PennBoy::DemoPlayer
-  walkSpeed: 3
+  walkSpeed: 8
   acceleration: 30
   maxSlopeDegrees: 30
   turnDegreesPerSecond: 900
@@ -126738,6 +126745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 7
   respawn: {x: 212, y: 4.05, z: 76}
+  arrival: 0
   elevated: 0
   targets:
   - {fileID: 1316016171}
@@ -131460,6 +131468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 9
   respawn: {x: 104, y: 0.05, z: 70}
+  arrival: 0
   elevated: 1
   targets:
   - {fileID: 190988473}
@@ -140538,6 +140547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 13
   respawn: {x: 68, y: 4.05, z: 124}
+  arrival: 0
   elevated: 1
   targets:
   - {fileID: 479963161}
@@ -143927,6 +143937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 2
   respawn: {x: 16, y: 0.05, z: 4}
+  arrival: 0
   elevated: 0
   targets:
   - {fileID: 964793544}
@@ -147012,6 +147023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 15
   respawn: {x: 172, y: 4.05, z: 122}
+  arrival: 0
   elevated: 1
   targets:
   - {fileID: 329564758}
@@ -154572,6 +154584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 14
   respawn: {x: 108, y: 0.05, z: 120}
+  arrival: 0
   elevated: 1
   targets:
   - {fileID: 2144266362}
@@ -155242,6 +155255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 6
   respawn: {x: 216, y: 0.05, z: 4}
+  arrival: 0
   elevated: 1
   targets:
   - {fileID: 682211803}
@@ -157321,6 +157335,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::ColorRegion
   route: 5
   respawn: {x: 164, y: 0.05, z: 8}
+  arrival: 0
   elevated: 0
   targets:
   - {fileID: 854499166}
@@ -177343,6 +177358,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: PennBoy::DemoDirector
   player: {fileID: 1485483110}
   firstRegion: {fileID: 585073555}
+  startRoute: 0
+  jumpKeys: 1
 --- !u!4 &2138031428
 Transform:
   m_ObjectHideFlags: 0

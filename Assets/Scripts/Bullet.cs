@@ -59,6 +59,17 @@ public class Bullet : MonoBehaviour
             return;
         }
 
+        // Turrets exchange only once. Spent turret stop bullet
+        Turret turret = hit.GetComponent<Turret>();
+
+        if (turret != null) {
+            if (turret.Spent) {
+                Destroy(gameObject);
+                return;
+            }
+            turret.MarkSpent();
+        }
+
         // Otherwise bullet collides into opposite color, swap color
         GameColor theirs = hit.CurrentColor;
 

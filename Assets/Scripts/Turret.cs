@@ -7,6 +7,9 @@ public class Turret : MonoBehaviour {
     // Projectible prefab cloned for each shot
     [SerializeField] private GameObject shotPrefab;
 
+    // Animator
+    [SerializeField] private Animator animator;
+
     // Spawn point of shot
     [SerializeField] private Transform shotSpawnPoint;
 
@@ -55,6 +58,14 @@ public class Turret : MonoBehaviour {
         if (warningLight != null) {
             warningLight.SetActive(warning);
         }
+
+        if (animator != null) {
+    animator.SetBool("IsShooting", firing);
+    Debug.Log("Firing: " + firing);
+}
+else {
+    Debug.LogError("Turret Animator is not assigned!");
+}
 
         // Fire while in firing cycle
         if (firing && Time.time >= nextShotTime) {

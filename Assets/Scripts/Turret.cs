@@ -24,7 +24,11 @@ public class Turret : MonoBehaviour {
     // Interval seconds between shots when firing
     [SerializeField] private float shotInterval = 0.2f;
 
+    // Speed of how turret rotate to face player
+    [SerializeField] private float turnSpeed = 120f;
+
     private Colorable colorable; // Turret color
+    private Transform player; // Player to aim at
     private float cycleTime; // How far into current cycle the state is at
     private float nextShotTime; // Time when next shot allowed
     private bool spent; // True after its one color exchange
@@ -34,6 +38,7 @@ public class Turret : MonoBehaviour {
 
     void Start() {
         colorable = GetComponent<Colorable>();
+        player = GameObject.FindWithTag("Player").transform;
 
         if (warningLight != null) {
             warningLight.SetActive(false);
@@ -41,6 +46,9 @@ public class Turret : MonoBehaviour {
     } 
 
     void Update() {
+
+        // Keep turning toward the player, even while firing
+        AimAtPlayer();
 
         // Count up and go back to 0 when cycle ends
         cycleTime += Time.deltaTime;
@@ -60,14 +68,34 @@ public class Turret : MonoBehaviour {
         }
 
         if (animator != null) {
-    animator.SetBool("IsShooting", firing);
-    Debug.Log("Firing: " + firing);
-}
+            animator.SetBool("IsShooting", firing);
+            Debug.Log("Firing: " + firing);
+        }
 
         // Fire while in firing cycle
         if (firing && Time.time >= nextShotTime) {
             Fire();
             nextShotTime = Time.time + shotInterval;
+        }
+    }
+
+    // Turn turret to face the player
+    private void AimAtPlayer() {
+
+        // Direction from turret to player
+        Vector3 look = player.position - transform.position;
+
+        // Flatten direction
+        look.y = 0f; 
+
+        // Only turn if player is on the right magnitude position
+        if (look.sqrMagnitude > 0.01f) {
+
+            // Rotation that face player
+            Quaternion wanted = Quaternion.LookRotation(look);
+
+            // Turn toward player with delay
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, wanted, turnSpeed * Time.deltaTime);
         }
     }
 

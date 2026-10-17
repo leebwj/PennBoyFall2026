@@ -63,9 +63,6 @@ public class Turret : MonoBehaviour {
     animator.SetBool("IsShooting", firing);
     Debug.Log("Firing: " + firing);
 }
-else {
-    Debug.LogError("Turret Animator is not assigned!");
-}
 
         // Fire while in firing cycle
         if (firing && Time.time >= nextShotTime) {

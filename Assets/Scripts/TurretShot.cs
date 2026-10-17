@@ -19,7 +19,7 @@ public class TurretShot : MonoBehaviour {
         shotColor = color;
 
         // Paint shot its respective color
-        Color tint = color == GameColor.Red ? new Color(0.85f, 0.25f, 0.25f) : new Color(0.25f, 0.45f, 0.9f);
+        Color tint = Colorable.Tint(color);
         foreach (Renderer r in GetComponentsInChildren<Renderer>()) {
             r.material.color = tint;
         }

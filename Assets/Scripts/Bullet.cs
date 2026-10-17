@@ -19,6 +19,11 @@ public class Bullet : MonoBehaviour
         
         shooter = from;
         shotColor = from.CurrentColor; // Read shooter's color and set bullet color the same
+
+        // Bullet color follows shooter color
+        foreach (Renderer r in GetComponentsInChildren<Renderer>()) {
+            r.material.color = Colorable.Tint(shotColor);
+        }
     }
 
     // Spawn and start bullet timer

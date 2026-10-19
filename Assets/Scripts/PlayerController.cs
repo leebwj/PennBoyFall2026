@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Player object automatically gets RigidBody
 [RequireComponent(typeof(Rigidbody))]
@@ -45,6 +46,12 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
         }
+
+        // Press R to retry 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     // Update player physics movement
@@ -53,6 +60,7 @@ public class PlayerController : MonoBehaviour
         // Read and save WASD direction.
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
         animator.SetBool("IsWalking", input.sqrMagnitude > 0.01f);
+
         // Change key direction to match camera view point
         input = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f) * input;
         

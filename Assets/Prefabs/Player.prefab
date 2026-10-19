@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Colorable
   color: 0
-  tintSlots: 0000000004000000
+  tintSlots: 04000000
 --- !u!1001 &4557455943155512171
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1038,6 +1038,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 87f58ddbc6e4a4c49ac354f9df0a484c, type: 2}
+    - target: {fileID: 6246385690252671567, guid: 3de3552710cb624468d5fead8835c3de, type: 3}
+      propertyPath: color
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7031158693423475317, guid: 3de3552710cb624468d5fead8835c3de, type: 3}
       propertyPath: m_LocalScale.z
       value: 2
@@ -2405,6 +2409,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColorWall
       objectReference: {fileID: 0}
+    - target: {fileID: 6246385690252671567, guid: 3de3552710cb624468d5fead8835c3de, type: 3}
+      propertyPath: color
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7031158693423475317, guid: 3de3552710cb624468d5fead8835c3de, type: 3}
       propertyPath: m_LocalScale.z
       value: 2
@@ -2892,6 +2900,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a1ddec3e1003d72409facca9329d075d, type: 2}
+    - target: {fileID: 6246385690252671567, guid: 3de3552710cb624468d5fead8835c3de, type: 3}
+      propertyPath: color
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7031158693423475317, guid: 3de3552710cb624468d5fead8835c3de, type: 3}
       propertyPath: m_LocalScale.z
       value: 2

@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-// Green pad object is the goal. 
+// Reach green pad to clear level 
 public class LevelExit : MonoBehaviour
 {
 
-    // Run when "player" steps on the pad
+    // When player steps on the green exit pad
     void OnTriggerEnter(Collider other) {
 
         // Ignore non-player objects
@@ -14,5 +15,16 @@ public class LevelExit : MonoBehaviour
 
         // Otherwise level complete
         Debug.Log("Level Complete!");
+
+        // Next level in Build Settings order
+        int next = SceneManager.GetActiveScene().buildIndex + 1;
+
+        // If on last level, nothing happens
+        if (next >= SceneManager.sceneCountInBuildSettings) {
+            return;
+        }
+        
+        // Otherwise load next scene (File -> Build Profiles -> Scene List for editing level order)
+        SceneManager.LoadScene(next);
     }
 }

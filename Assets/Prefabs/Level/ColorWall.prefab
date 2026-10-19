@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37dff0fa187ba5d46b69c27b67b79b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Colorable
-  color: 1
+  color: 0
   tintSlots: 
 --- !u!114 &4756430614512452389
 MonoBehaviour:

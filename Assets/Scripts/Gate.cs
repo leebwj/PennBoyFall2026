@@ -10,6 +10,10 @@ public class Gate : MonoBehaviour
     // Gate movement speed
     [SerializeField] private float speed = 4f;
 
+    // audio
+    [SerializeField] private AudioSource gateAudio;
+
+
     // Set by a plate
     private bool open;
 
@@ -25,6 +29,17 @@ public class Gate : MonoBehaviour
 
         // Move to open or closed position each frame
         Vector3 target = open ? closedPosition + Vector3.down * drop : closedPosition;
+
+        bool moving = Vector3.Distance(transform.position, target) > 0.001f;
+
+        if (gateAudio != null){
+            if (moving && !gateAudio.isPlaying) {
+                gateAudio.Play();
+            } else if (!moving && gateAudio.isPlaying) {
+                gateAudio.Stop();
+            }
+        }
+
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
 

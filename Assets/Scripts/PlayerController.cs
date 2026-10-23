@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     // Position of where bullets spawn. Initially in front of player.
     [SerializeField] private Transform bulletSpawnPoint;
 
+    //Audio
+    [SerializeField] private AudioSource walkAudio;
+    [SerializeField] private AudioSource shootAudio;
+
     
     private Rigidbody rb; // Player physics body
     private Camera cam; // Scene camera
@@ -60,6 +64,17 @@ public class PlayerController : MonoBehaviour
         // Read and save WASD direction.
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
         animator.SetBool("IsWalking", input.sqrMagnitude > 0.01f);
+
+        // audio
+        if (walkAudio != null) {
+            if (input.sqrMagnitude > 0.1f) {
+                if (!walkAudio.isPlaying) {
+                    walkAudio.Play();
+                }
+            } else if (walkAudio.isPlaying) {
+                walkAudio.Stop();
+            }
+        }
 
         // Change key direction to match camera view point
         input = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f) * input;
@@ -119,6 +134,10 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetTrigger("Shoot");
+
+        if (shootAudio != null && shootAudio.clip != null) {
+            shootAudio.PlayOneShot(shootAudio.clip);
+        }
 
         // Create bullet by cloning prefab at spawn point. 
         GameObject shot = Instantiate(bulletPrefab, bulletSpawnPoint.position, transform.rotation);

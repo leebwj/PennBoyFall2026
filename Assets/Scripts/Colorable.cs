@@ -43,7 +43,7 @@ public class Colorable : MonoBehaviour
 
             for (int i = 0; i < mats.Length; i++) {
                 if (tintSlots.Length == 0 || System.Array.IndexOf(tintSlots, i) >= 0) {
-                    mats[i].color = tint;
+                    mats[i].SetColor("_Colour", tint);
                 }
             }
         }
